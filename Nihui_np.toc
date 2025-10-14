@@ -1,0 +1,24 @@
+## Interface: 110200
+## Title: |cff00ff00Nihui|r |cffffffffNameplates|r
+## Author: nihil (based on rnxmUI)
+## Notes: Améliorations des nameplates - Bordures, effets visuels, animations de perte de vie
+## Version: 1.0
+## IconTexture: Interface/AddOns/Nihui_np/textures/icon.tga
+## SavedVariables: NihuiNameplatesDB
+
+# Libraries
+libs\libs.xml
+
+# Core files
+init.lua
+config.lua
+
+# Modules
+modules\nameplates.lua
+modules\borders.lua
+modules\animations.lua
+modules\castbar.lua
+
+# GUI
+gui\gui.lua
+core\commands.lua
