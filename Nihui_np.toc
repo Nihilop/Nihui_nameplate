@@ -1,9 +1,10 @@
 ## Interface: 110205
 ## Title: |cff00ff00Nihui|r |cffffffffNameplates|r
+## Category: NihUI
 ## Author: nihil (based on rnxmUI)
 ## Notes: Améliorations des nameplates - Bordures, effets visuels, animations de perte de vie
 ## Version: 1.0.0
-## IconTexture: Interface/AddOns/Nihui_np/textures/icon.tga
+## IconAtlas: GarrMission_MissionIcon-Recruit
 ## SavedVariables: NihuiNameplatesDB
 
 # Libraries
