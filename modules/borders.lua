@@ -192,6 +192,21 @@ local function StyleNameplate(nameplate)
         end
     end
 
+    -- OPTIMIZED: Apply normal scaling to all nameplates
+    local scalingSettings = ns.nameplateSettings and ns.nameplateSettings().scaling
+    if scalingSettings and scalingSettings.enabled then
+        local normalScaleX = scalingSettings.normalWidth or 1.0
+        local normalScaleY = scalingSettings.normalHeight or 1.15
+
+        if normalScaleX ~= 1.0 or normalScaleY ~= 1.0 then
+            if nameplate.UnitFrame then
+                local currentWidth, currentHeight = nameplate.UnitFrame:GetSize()
+                nameplate.UnitFrame:SetWidth(currentWidth * normalScaleX)
+                nameplate.UnitFrame:SetHeight(currentHeight * normalScaleY)
+            end
+        end
+    end
+
     -- Mark as styled AFTER all styling is complete
     healthBar.nihuiStyled = true
 end
@@ -273,6 +288,23 @@ local function UpdateTargetHighlight(nameplate)
                 healthBar.nihuiTargetBorder.pulseGroup:Play()
             end
 
+            -- OPTIMIZED: Scale up target nameplate
+            local scalingSettings = ns.nameplateSettings and ns.nameplateSettings().scaling
+            if scalingSettings and scalingSettings.enabled then
+                -- Scale up target nameplate (height only for more emphasis)
+                local targetScaleX = scalingSettings.targetWidth or 1.2
+                local targetScaleY = scalingSettings.targetHeight or 1.5
+
+                -- Apply scale to the entire nameplate frame for smooth transition
+                if nameplate.UnitFrame then
+                    nameplate.UnitFrame:SetScale(1.0) -- Reset first
+                    -- Use width scale for X, height scale for Y
+                    local currentWidth, currentHeight = nameplate.UnitFrame:GetSize()
+                    nameplate.UnitFrame:SetWidth(currentWidth * targetScaleX)
+                    nameplate.UnitFrame:SetHeight(currentHeight * targetScaleY)
+                end
+            end
+
         else
             -- Hide target border when not targeted
             if healthBar.nihuiTargetBorder then
@@ -281,6 +313,25 @@ local function UpdateTargetHighlight(nameplate)
                     healthBar.nihuiTargetBorder.pulseGroup:Stop()
                 end
                 healthBar.nihuiTargetBorder:Hide()
+            end
+
+            -- OPTIMIZED: Reset scale for non-target nameplates
+            local scalingSettings = ns.nameplateSettings and ns.nameplateSettings().scaling
+            if scalingSettings and scalingSettings.enabled then
+                if nameplate.UnitFrame then
+                    -- Reset to normal size
+                    nameplate.UnitFrame:SetScale(1.0)
+                    -- Note: We can't easily get the "original" size, so we rely on Blizzard's defaults
+                    -- Alternatively, apply the "normal" scale if set
+                    local normalScaleX = scalingSettings.normalWidth or 1.0
+                    local normalScaleY = scalingSettings.normalHeight or 1.15
+
+                    if normalScaleX ~= 1.0 or normalScaleY ~= 1.0 then
+                        local currentWidth, currentHeight = nameplate.UnitFrame:GetSize()
+                        nameplate.UnitFrame:SetWidth(currentWidth * normalScaleX)
+                        nameplate.UnitFrame:SetHeight(currentHeight * normalScaleY)
+                    end
+                end
             end
         end
     end

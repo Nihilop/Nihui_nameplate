@@ -94,11 +94,11 @@ function ns.Config:ResetToDefaults()
 
         -- Scaling Settings
         scaling = {
-            enabled = false,
-            normalWidth = 1.0,
-            normalHeight = 1.0,
-            targetWidth = 1.2,
-            targetHeight = 1.2
+            enabled = true,  -- OPTIMIZED: Enabled by default for better visibility
+            normalWidth = 1.0,  -- Keep width normal
+            normalHeight = 1.15,  -- OPTIMIZED: +15% height for all nameplates
+            targetWidth = 1.0,  -- Keep target width normal (or 1.1 for slight increase)
+            targetHeight = 1.5  -- OPTIMIZED: +50% height for target (very visible!)
         }
     }
 
